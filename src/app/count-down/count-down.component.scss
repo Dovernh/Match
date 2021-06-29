@@ -1,19 +1,20 @@
-.timer {
-  text-align: center;
+.timer-container {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  span {
-    padding-right: 0.2rem;
+  .timer {
+    span {
+      padding-right: 0.2rem;
+    }
   }
-}
 
-.submit {
-  padding: 0.5rem;
-  background: azure;
-  border: 2px solid #eec;
-  right: 0.5rem;
-  border-radius: 0.2rem;
-  justify-content: flex-end;
+  .submit {
+    padding: 0.5rem 1rem;
+    background: azure;
+    border: 2px solid #eec;
+    right: 0.5rem;
+    border-radius: 0.2rem;
+    position: absolute;
+  }
 }
