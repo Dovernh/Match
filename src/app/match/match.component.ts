@@ -168,7 +168,7 @@ export class MatchComponent implements OnInit, AfterViewInit {
     this.words.forEach((x) => {
       if (x.displayName === word) {
         this.selectedWord = word;
-        x.selected = true;
+        x.selected = !x.selected;
       } else {
         x.selected = false;
       }
