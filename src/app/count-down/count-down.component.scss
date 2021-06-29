@@ -1,0 +1,19 @@
+.timer {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    padding-right: 0.2rem;
+  }
+}
+
+.submit {
+  padding: 0.5rem;
+  background: azure;
+  border: 2px solid #eec;
+  right: 0.5rem;
+  border-radius: 0.2rem;
+  justify-content: flex-end;
+}

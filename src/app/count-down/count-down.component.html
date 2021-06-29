@@ -1,0 +1,15 @@
+<div class="timer" *ngIf="timeDifference > 0; else timesUp">
+  <span>Time Remaining </span>
+  <span id="minutes" *ngIf="minutesToEndDate > 0">
+    {{ minutesToEndDate }} min</span
+  >
+  <span id="seconds"> {{ secondsToEndDate }} sec</span>
+
+  <div>
+    <button class="submit" type="button" (click)="submit()">Submit</button>
+  </div>
+</div>
+
+<ng-template #timesUp>
+  <div class="timer">Times Up</div>
+</ng-template>

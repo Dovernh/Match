@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>
+    <app-count-down
+      [endMinutes]="20"
+      (submitted)="submitted()"
+    ></app-count-down>
+  </h2>
+
+  <div class="words">
+    <div
+      class="word"
+      *ngFor="let word of words"
+      (click)="selectWord(word.displayName)"
+      [ngClass]="{ selected: word.selected }"
+      [ngClass]="{ hidden: word.assigned }"
+    >
+      {{ word.displayName }}
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="defs">
+    <div class="def-container" *ngFor="let def of defs">
+      <div
+        class="placeholder"
+        *ngIf="def.assignedWord"
+        (click)="unassignWord(def)"
+      >
+        {{ def.assignedWord }}
+      </div>
+      <div class="def" (click)="assignWord(def)">{{ def.definition }}</div>
+    </div>
+  </div>
+</div>
