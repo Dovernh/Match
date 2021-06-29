@@ -1,26 +1,25 @@
 <div class="container">
-  <h2>
-    <app-count-down
-      [endMinutes]="20"
-      (submitted)="submitted()"
-    ></app-count-down>
-  </h2>
-
-  <div class="words">
-    <div
-      class="word"
-      *ngFor="let word of words"
-      (click)="selectWord(word.displayName)"
-      [ngClass]="{ selected: word.selected }"
-      [ngClass]="{ hidden: word.assigned }"
-    >
-      {{ word.displayName }}
+  <div class="sticky header" #headerContainer>
+    <h2>
+      <app-count-down
+        [endMinutes]="20"
+        (submitted)="submitted()"
+      ></app-count-down>
+    </h2>
+    <div class="words">
+      <div
+        class="word"
+        *ngFor="let word of words"
+        (click)="selectWord(word.displayName)"
+        [ngClass]="{ selected: word.selected }"
+        [ngClass]="{ hidden: word.assigned }"
+      >
+        {{ word.displayName }}
+      </div>
     </div>
   </div>
 
-  <hr />
-
-  <div class="defs">
+  <div class="defs" #defContainer>
     <div class="def-container" *ngFor="let def of defs">
       <div
         class="placeholder"
