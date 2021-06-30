@@ -5,3 +5,8 @@ button {
   margin-right: 0.5rem;
   border-radius: 0.2rem;
 }
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}

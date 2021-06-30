@@ -12,6 +12,6 @@ export class MatchFinishComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.timeExpired = this.route.snapshot.queryParams.expired;
+    this.timeExpired = this.route.snapshot.queryParams.expired === 'true';
   }
 }
