@@ -205,6 +205,10 @@ export class MatchComponent implements OnInit, AfterViewInit {
       });
 
       this.selectedWord = null;
+    } else {
+      if (def.assignedWord) {
+        this.unassignWord(def);
+      }
     }
   }
 
