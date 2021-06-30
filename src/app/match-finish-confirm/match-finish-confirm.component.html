@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Confirm Submission</h1>
+
+<div mat-dialog-content>
+  <p>Are you sure you are ready to submit your responses?</p>
+</div>
+
+<div mat-dialog-actions>
+  <button (click)="onCancel()">Cancel</button>
+  <button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+</div>

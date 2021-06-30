@@ -15,8 +15,9 @@ import { startWith, takeWhile, tap } from 'rxjs/operators';
   styleUrls: ['./count-down.component.scss'],
 })
 export class CountDownComponent implements OnInit, OnDestroy {
-  @Input() endMinutes = 20;
+  @Input() endMinutes = 6;
   @Output() submitted = new EventEmitter<void>();
+  @Output() timeExpired = new EventEmitter<void>();
 
   dateNow = new Date();
   endDate = new Date(
@@ -38,6 +39,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
     this.subscription = interval(1000)
       .pipe(
         startWith(0),
+        tap(() => (this.timeDifference <= 0 ? this.timeExpired.emit() : null)),
         takeWhile(() => this.timeDifference > 0)
       )
       .subscribe((x) => {
@@ -66,8 +68,11 @@ export class CountDownComponent implements OnInit, OnDestroy {
     );
   }
 
-  submit(): void {
+  cancelTimer(): void {
     this.timeDifference = 0;
+  }
+
+  submit(): void {
     this.submitted.emit();
   }
 }

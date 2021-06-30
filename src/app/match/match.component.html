@@ -1,9 +1,10 @@
 <div class="container">
   <div class="sticky header" #headerContainer>
-    <h3>
+    <h3 class="count-down">
       <app-count-down
         [endMinutes]="20"
         (submitted)="submitted()"
+        (timeExpired)="timeExpired()"
       ></app-count-down>
     </h3>
     <div class="words">
@@ -12,7 +13,7 @@
         *ngFor="let word of words"
         (click)="selectWord(word.displayName)"
         [ngClass]="{ selected: word.selected }"
-        [ngClass]="{ hidden: word.assigned }"
+        [ngClass]="{ 'strike-through': word.assigned }"
       >
         {{ word.displayName }}
       </div>
@@ -24,7 +25,7 @@
       <div
         class="placeholder"
         *ngIf="def.assignedWord"
-        (click)="unassignWord(def)"
+        (click)="assignWord(def)"
       >
         {{ def.assignedWord }}
       </div>

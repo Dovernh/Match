@@ -12,6 +12,8 @@ import { CountDownComponent } from './count-down/count-down.component';
 import { MatchComponent } from './match/match.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatchFinishComponent } from './match-finish/match-finish.component';
+import { MatchFinishConfirmComponent } from './match-finish-confirm/match-finish-confirm.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { MatchFinishComponent } from './match-finish/match-finish.component';
     CountDownComponent,
     MatchComponent,
     MatchFinishComponent,
+    MatchFinishConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { MatchFinishComponent } from './match-finish/match-finish.component';
     }),
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

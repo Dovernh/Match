@@ -1,1 +1,9 @@
-<div class="thanks">Thank you, your form was submitted</div>
+<div class="thanks">
+  <div *ngIf="!expired; else expired">
+    Thank you, your responses were submitted
+  </div>
+</div>
+
+<ng-template #expired
+  >Your time expired, your responses were not submitted</ng-template
+>

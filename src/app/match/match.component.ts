@@ -6,7 +6,10 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { CountDownComponent } from '../count-down/count-down.component';
+import { MatchFinishConfirmComponent } from '../match-finish-confirm/match-finish-confirm.component';
 import { Definition } from '../models/definition.model';
 import { Word } from '../models/word.model';
 
@@ -18,6 +21,7 @@ import { Word } from '../models/word.model';
 export class MatchComponent implements OnInit, AfterViewInit {
   @ViewChild('headerContainer') headerContainer!: ElementRef;
   @ViewChild('defContainer') defContainer!: ElementRef;
+  @ViewChild(CountDownComponent) countDownComponent!: CountDownComponent;
 
   selectedWord: string | null = null;
 
@@ -137,7 +141,7 @@ export class MatchComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.words.sort((a, b) =>
@@ -167,8 +171,16 @@ export class MatchComponent implements OnInit, AfterViewInit {
 
     this.words.forEach((x) => {
       if (x.displayName === word) {
-        this.selectedWord = word;
-        x.selected = !x.selected;
+        if (x.assigned) {
+          const def: Definition | undefined = this.defs.find(
+            (x) => x.assignedWord === word
+          );
+
+          this.unassignWord(def);
+        } else {
+          this.selectedWord = word;
+          x.selected = !x.selected;
+        }
       } else {
         x.selected = false;
       }
@@ -177,6 +189,10 @@ export class MatchComponent implements OnInit, AfterViewInit {
 
   assignWord(def: Definition): void {
     if (this.selectedWord) {
+      if (def.assignedWord) {
+        this.unassignWord(def);
+      }
+
       def.assignedWord = this.selectedWord;
 
       this.words.forEach((x) => {
@@ -192,7 +208,11 @@ export class MatchComponent implements OnInit, AfterViewInit {
     }
   }
 
-  unassignWord(def: Definition): void {
+  unassignWord(def: Definition | undefined): void {
+    if (!def) {
+      return;
+    }
+
     const word = this.words.find((x) => x.displayName === def.assignedWord);
 
     if (word) {
@@ -202,6 +222,22 @@ export class MatchComponent implements OnInit, AfterViewInit {
   }
 
   submitted(): void {
-    this.router.navigate(['/match-finish']);
+    const dialogRef = this.dialog.open(MatchFinishConfirmComponent);
+
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (res) {
+        this.countDownComponent.cancelTimer();
+
+        this.router.navigate(['/match-finish'], {
+          queryParams: { expired: false },
+        });
+      }
+    });
+  }
+
+  timeExpired(): void {
+    this.router.navigate(['/match-finish'], {
+      queryParams: { expired: true },
+    });
   }
 }

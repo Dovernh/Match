@@ -1,15 +1,24 @@
-<div class="timer-container" *ngIf="timeDifference > 0; else timesUp">
-  <div class="timer">
-    <span>Time: </span>
+<div class="timer-container">
+  <div *ngIf="timeDifference > 0; else timesUp">
+    <div class="timer">
+      <span>Time: </span>
 
-    <span id="minutes" *ngIf="minutesToEndDate > 0">
-      {{ minutesToEndDate }}m</span
-    >
+      <span id="minutes" *ngIf="minutesToEndDate > 0">
+        {{ minutesToEndDate }}m
+      </span>
 
-    <span id="seconds"> {{ secondsToEndDate }}s</span>
+      <span id="seconds"> {{ secondsToEndDate }}s</span>
+    </div>
   </div>
 
-  <button class="submit" type="button" (click)="submit()">Submit</button>
+  <button
+    class="submit"
+    [disabled]="timeDifference <= 0"
+    type="button"
+    (click)="submit()"
+  >
+    Submit
+  </button>
 </div>
 
 <ng-template #timesUp>
