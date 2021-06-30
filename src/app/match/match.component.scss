@@ -31,10 +31,6 @@
         &.selected {
           color: #000;
         }
-
-        &::first-letter {
-          text-transform: capitalize;
-        }
       }
     }
   }
@@ -56,18 +52,10 @@
         text-align: center;
         background: var(--primary);
         padding: 0.5rem;
-
-        &::first-letter {
-          text-transform: capitalize;
-        }
       }
 
       .def {
         padding: 1rem 0;
-
-        &::first-letter {
-          text-transform: capitalize;
-        }
       }
     }
   }
