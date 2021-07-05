@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -33,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
       registrationStrategy: 'registerWhenStable:30000',
     }),
     BrowserAnimationsModule,
+    HttpClientModule,
     MatSnackBarModule,
     MatDialogModule,
   ],

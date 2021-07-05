@@ -73,6 +73,13 @@
   background: var(--primary);
 }
 
-.strike-through {
+.assigned {
   text-decoration: line-through;
+}
+
+.loading {
+  font-size: xx-large;
+  height: 100vh;
+  display: grid;
+  place-items: center;
 }

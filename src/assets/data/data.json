@@ -1,0 +1,118 @@
+{
+  "words": [
+    { "displayName": "coefficient", "selected": false, "assigned": false },
+    { "displayName": "constant", "selected": false, "assigned": false },
+    { "displayName": "domain", "selected": false, "assigned": false },
+    { "displayName": "equation", "selected": false, "assigned": false },
+    { "displayName": "expression", "selected": false, "assigned": false },
+    { "displayName": "factors", "selected": false, "assigned": false },
+    { "displayName": "function", "selected": false, "assigned": false },
+    { "displayName": "inequality", "selected": false, "assigned": false },
+    { "displayName": "integers", "selected": false, "assigned": false },
+    { "displayName": "inverse", "selected": false, "assigned": false },
+    { "displayName": "like terms ", "selected": false, "assigned": false },
+    { "displayName": "linear equation", "selected": false, "assigned": false },
+    { "displayName": "perfect square", "selected": false, "assigned": false },
+    { "displayName": "point", "selected": false, "assigned": false },
+    {
+      "displayName": "quadratic equation",
+      "selected": false,
+      "assigned": false
+    },
+    { "displayName": "range", "selected": false, "assigned": false },
+    { "displayName": "reciprocals", "selected": false, "assigned": false },
+    { "displayName": "relation", "selected": false, "assigned": false },
+    { "displayName": "roots", "selected": false, "assigned": false },
+    { "displayName": "slope", "selected": false, "assigned": false }
+  ],
+  "definitions": [
+    {
+      "definition": "product of two numbers is 1",
+      "assignedWord": ""
+    },
+    {
+      "definition": "lines and sets that never end",
+      "assignedWord": ""
+    },
+    {
+      "definition": "positive or negative whole number or zero",
+      "assignedWord": ""
+    },
+    {
+      "definition": "square root is a rational number",
+      "assignedWord": ""
+    },
+    {
+      "definition": "intersection of two lines",
+      "assignedWord": ""
+    },
+    {
+      "definition": "used when exact answer is unknown",
+      "assignedWord": ""
+    },
+    {
+      "definition": "number in front of variable",
+      "assignedWord": ""
+    },
+    {
+      "definition": "variables to second power",
+      "assignedWord": ""
+    },
+    {
+      "definition": "value that never changes",
+      "assignedWord": ""
+    },
+    {
+      "definition": "graph is straight line",
+      "assignedWord": ""
+    },
+    {
+      "definition": "ratio of change in y to corresponding change in x",
+      "assignedWord": ""
+    },
+    {
+      "definition": "values of independent variable",
+      "assignedWord": ""
+    },
+    {
+      "definition": "one operation undoes effect of other operation",
+      "assignedWord": ""
+    },
+    {
+      "definition": "mathematical sentence stating that two expressions are equal",
+      "assignedWord": ""
+    },
+    {
+      "definition": "solution for a quadratic equation",
+      "assignedWord": ""
+    },
+    {
+      "definition": "quantities being multiplied",
+      "assignedWord": ""
+    },
+    {
+      "definition": "values for dependent variable",
+      "assignedWord": ""
+    },
+    {
+      "definition": "value in input has exactly one value in output",
+      "assignedWord": ""
+    },
+    {
+      "definition": "contain same variables raised to same power",
+      "assignedWord": ""
+    },
+    {
+      "definition": "rectangular arrangement of numbers in rows and columns",
+      "assignedWord": ""
+    },
+    {
+      "definition": "combines numbers and/or variables using mathematical operations",
+      "assignedWord": ""
+    },
+    {
+      "definition": "set of ordered pairs",
+      "assignedWord": ""
+    }
+  ]
+}

@@ -1,156 +1,57 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { CountDownComponent } from '../count-down/count-down.component';
 import { MatchFinishConfirmComponent } from '../match-finish-confirm/match-finish-confirm.component';
 import { Definition } from '../models/definition.model';
 import { Word } from '../models/word.model';
+import { Data } from '../models/data.model';
 
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
   styleUrls: ['./match.component.scss'],
 })
-export class MatchComponent implements OnInit, AfterViewInit {
+export class MatchComponent implements OnInit, OnDestroy {
   @ViewChild('headerContainer') headerContainer!: ElementRef;
   @ViewChild('defContainer') defContainer!: ElementRef;
   @ViewChild(CountDownComponent) countDownComponent!: CountDownComponent;
 
   selectedWord: string | null = null;
 
-  words: Word[] = [
-    { displayName: 'coefficient', selected: false, assigned: false },
-    { displayName: 'constant', selected: false, assigned: false },
-    { displayName: 'domain', selected: false, assigned: false },
-    { displayName: 'equation', selected: false, assigned: false },
-    { displayName: 'expression', selected: false, assigned: false },
-    { displayName: 'factors', selected: false, assigned: false },
-    { displayName: 'function', selected: false, assigned: false },
-    { displayName: 'inequality', selected: false, assigned: false },
-    { displayName: 'integers', selected: false, assigned: false },
-    { displayName: 'inverse', selected: false, assigned: false },
-    { displayName: 'like terms ', selected: false, assigned: false },
-    { displayName: 'linear equation', selected: false, assigned: false },
-    { displayName: 'perfect square', selected: false, assigned: false },
-    { displayName: 'point', selected: false, assigned: false },
-    { displayName: 'quadratic equation', selected: false, assigned: false },
-    { displayName: 'range', selected: false, assigned: false },
-    { displayName: 'reciprocals', selected: false, assigned: false },
-    { displayName: 'relation', selected: false, assigned: false },
-    { displayName: 'roots', selected: false, assigned: false },
-    { displayName: 'slope', selected: false, assigned: false },
-  ];
+  words!: Word[];
+  defs!: Definition[];
+  dialogRef!: MatDialogRef<MatchFinishConfirmComponent>;
 
-  defs: Definition[] = [
-    {
-      definition: 'product of two numbers is 1',
-      assignedWord: '',
-    },
-    {
-      definition: 'lines and sets that never end',
-      assignedWord: '',
-    },
-    {
-      definition: 'positive or negative whole number or zero',
-      assignedWord: '',
-    },
-    {
-      definition: 'square root is a rational number',
-      assignedWord: '',
-    },
-    {
-      definition: 'intersection of two lines',
-      assignedWord: '',
-    },
-    {
-      definition: 'used when exact answer is unknown',
-      assignedWord: '',
-    },
-    {
-      definition: 'number in front of variable',
-      assignedWord: '',
-    },
-    {
-      definition: 'variables to second power',
-      assignedWord: '',
-    },
-    {
-      definition: 'value that never changes',
-      assignedWord: '',
-    },
-    {
-      definition: 'graph is straight line',
-      assignedWord: '',
-    },
-    {
-      definition: 'ratio of change in y to corresponding change in x',
-      assignedWord: '',
-    },
-    {
-      definition: 'values of independent variable',
-      assignedWord: '',
-    },
-    {
-      definition: 'one operation undoes effect of other operation',
-      assignedWord: '',
-    },
-    {
-      definition:
-        'mathematical sentence stating that two expressions are equal',
-      assignedWord: '',
-    },
-    {
-      definition: 'solution for a quadratic equation',
-      assignedWord: '',
-    },
-    {
-      definition: 'quantities being multiplied',
-      assignedWord: '',
-    },
-    {
-      definition: 'values for dependent variable',
-      assignedWord: '',
-    },
-    {
-      definition: 'value in input has exactly one value in output',
-      assignedWord: '',
-    },
-    {
-      definition: 'contain same variables raised to same power',
-      assignedWord: '',
-    },
-    {
-      definition: 'rectangular arrangement of numbers in rows and columns',
-      assignedWord: '',
-    },
-    {
-      definition:
-        'combines numbers and/or variables using mathematical operations',
-      assignedWord: '',
-    },
-    {
-      definition: 'set of ordered pairs',
-      assignedWord: '',
-    },
-  ];
-
-  constructor(private router: Router, private dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
-    this.words.sort((a, b) =>
-      a.displayName > b.displayName ? 1 : b.displayName < a.displayName ? -1 : 0
-    );
+    this.http.get('assets/data/data.json').subscribe((res) => {
+      this.words = this.sortWords((res as Data).words as Word[]);
+      this.defs = (res as Data).definitions as Definition[];
+
+      setTimeout(() => {
+        this.adjustDefContainerHeight();
+      }, 100);
+    });
   }
 
-  ngAfterViewInit(): void {
-    this.adjustDefContainerHeight();
+  ngOnDestroy(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -226,9 +127,9 @@ export class MatchComponent implements OnInit, AfterViewInit {
   }
 
   submitted(): void {
-    const dialogRef = this.dialog.open(MatchFinishConfirmComponent);
+    this.dialogRef = this.dialog.open(MatchFinishConfirmComponent);
 
-    dialogRef.afterClosed().subscribe((res: boolean) => {
+    this.dialogRef.afterClosed().subscribe((res: boolean) => {
       if (res) {
         this.countDownComponent.cancelTimer();
 
@@ -243,5 +144,13 @@ export class MatchComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/match-finish'], {
       queryParams: { expired: true },
     });
+  }
+
+  sortWords(words: Word[]): Word[] {
+    const sortedWords = words.sort((a, b) =>
+      a.displayName > b.displayName ? 1 : b.displayName < a.displayName ? -1 : 0
+    );
+
+    return sortedWords;
   }
 }
