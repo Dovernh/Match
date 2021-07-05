@@ -3,12 +3,9 @@
   TERM = "xterm"
 
 [[plugins]]
-  package = "netlify-plugin-cypress"
-  
+package = "netlify-plugin-cypress"
   [plugins.inputs]
-    # skip the default tests before the deploy
     skip = true
   [plugins.inputs.onSuccess]
-    # run tests after the deploy
     enable = true
     record = true
