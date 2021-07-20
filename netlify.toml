@@ -6,3 +6,8 @@
 package = "netlify-plugin-cypress"
   [plugins.inputs]
     record = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
