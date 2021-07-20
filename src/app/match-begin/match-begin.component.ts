@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HowFeeling } from '../enums/how-feeling-enum';
 
 @Component({
-  selector: 'app-match-finish',
-  templateUrl: './match-finish.component.html',
-  styleUrls: ['./match-finish.component.scss'],
+  selector: 'app-match-begin',
+  templateUrl: './match-begin.component.html',
+  styleUrls: ['./match-begin.component.scss'],
 })
-export class MatchFinishComponent {
+export class MatchBeginComponent {
   selectedFeeling: HowFeeling | null = null;
 
   constructor(private router: Router) {}
@@ -16,7 +16,8 @@ export class MatchFinishComponent {
     this.selectedFeeling = howFeeling;
   }
 
-  finish(): void {
-    this.router.navigate(['/match-results']);
+  start(): void {
+    // TODO: log
+    this.router.navigate(['/match']);
   }
 }

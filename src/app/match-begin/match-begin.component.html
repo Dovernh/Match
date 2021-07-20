@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="are-u-ready">Are you ready for this?</div>
+
+  <div class="instruct">Select how prepared you feel, then click "Begin"</div>
+
+  <app-faces
+    actionName="Begin"
+    (selectedFeeling)="onFeelingSelected($event)"
+  ></app-faces>
+
+  <div class="begin">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="selectedFeeling === null"
+      (click)="start()"
+    >
+      Begin
+    </button>
+  </div>
+</div>

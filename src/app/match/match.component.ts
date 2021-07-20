@@ -8,12 +8,12 @@ import {
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { CountDownComponent } from '../count-down/count-down.component';
 import { MatchFinishConfirmComponent } from '../match-finish-confirm/match-finish-confirm.component';
 import { Definition } from '../models/definition.model';
 import { Word } from '../models/word.model';
-import { Data } from '../models/data.model';
+import { Probe } from '../models/probe.model';
+import { MatchService } from '../match.service';
 
 @Component({
   selector: 'app-match',
@@ -27,6 +27,7 @@ export class MatchComponent implements OnInit, OnDestroy {
 
   selectedWord: string | null = null;
 
+  probe?: Probe;
   words!: Word[];
   defs!: Definition[];
   dialogRef!: MatDialogRef<MatchFinishConfirmComponent>;
@@ -34,13 +35,14 @@ export class MatchComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private dialog: MatDialog,
-    private http: HttpClient
+    private matchService: MatchService
   ) {}
 
   ngOnInit(): void {
-    this.http.get('assets/data/data.json').subscribe((res) => {
-      this.words = this.sortWords((res as Data).words as Word[]);
-      this.defs = (res as Data).definitions as Definition[];
+    this.matchService.getWordsAndDefinitions().subscribe((probe) => {
+      this.probe = probe;
+      this.words = this.matchService.sortWords(this.probe.words);
+      this.defs = this.probe.definitions;
 
       setTimeout(() => {
         this.adjustDefContainerHeight();
@@ -68,62 +70,23 @@ export class MatchComponent implements OnInit, OnDestroy {
   }
 
   selectWord(word: string): void {
-    this.selectedWord = null;
-
-    this.words.forEach((x) => {
-      if (x.displayName === word) {
-        if (x.assigned) {
-          const def: Definition | undefined = this.defs.find(
-            (x) => x.assignedWord === word
-          );
-
-          this.unassignWord(def);
-        } else {
-          this.selectedWord = word;
-          x.selected = !x.selected;
-        }
-      } else {
-        x.selected = false;
-      }
-    });
+    this.selectedWord = this.matchService.selectWord(
+      word,
+      this.words,
+      this.defs
+    );
   }
 
   assignWord(def: Definition): void {
-    if (this.selectedWord) {
-      if (def.assignedWord) {
-        this.unassignWord(def);
-      }
-
-      def.assignedWord = this.selectedWord;
-
-      this.words.forEach((x) => {
-        if (x.displayName === this.selectedWord) {
-          x.assigned = true;
-          x.selected = false;
-        }
-
-        x.selected = false;
-      });
-
-      this.selectedWord = null;
-    } else {
-      if (def.assignedWord) {
-        this.unassignWord(def);
-      }
-    }
+    this.selectedWord = this.matchService.assignWord(
+      def,
+      this.selectedWord,
+      this.words
+    );
   }
 
-  unassignWord(def: Definition | undefined): void {
-    if (!def) {
-      return;
-    }
-
-    const word = this.words.find((x) => x.displayName === def.assignedWord);
-
-    if (word) {
-      word.assigned = false;
-      def.assignedWord = null;
-    }
+  unassignWord(def: Definition): void {
+    this.matchService.unassignWord(def, this.words);
   }
 
   submitted(): void {
@@ -132,25 +95,14 @@ export class MatchComponent implements OnInit, OnDestroy {
     this.dialogRef.afterClosed().subscribe((res: boolean) => {
       if (res) {
         this.countDownComponent.cancelTimer();
-
-        this.router.navigate(['/match-finish'], {
-          queryParams: { expired: false },
-        });
+        this.matchService.updateFinalProbe(this.probe);
+        this.router.navigate(['/match-finish']);
       }
     });
   }
 
   timeExpired(): void {
-    this.router.navigate(['/match-finish'], {
-      queryParams: { expired: true },
-    });
-  }
-
-  sortWords(words: Word[]): Word[] {
-    const sortedWords = words.sort((a, b) =>
-      a.displayName > b.displayName ? 1 : b.displayName < a.displayName ? -1 : 0
-    );
-
-    return sortedWords;
+    this.matchService.updateFinalProbe(this.probe);
+    this.router.navigate(['/match-finish']);
   }
 }

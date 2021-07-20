@@ -1,0 +1,22 @@
+<div class="faces">
+  <i
+    class="far fa-frown"
+    title="not really"
+    (click)="onSelectFeeling(HowFeeling.notReally)"
+    [class.selected]="howFeeling === HowFeeling.notReally"
+  ></i>
+
+  <i
+    class="far fa-meh"
+    title="not sure"
+    (click)="onSelectFeeling(HowFeeling.notSure)"
+    [class.selected]="howFeeling === HowFeeling.notSure"
+  ></i>
+
+  <i
+    class="far fa-smile"
+    title="definitely"
+    (click)="onSelectFeeling(HowFeeling.definitely)"
+    [class.selected]="howFeeling === HowFeeling.definitely"
+  ></i>
+</div>

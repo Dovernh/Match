@@ -1,0 +1,42 @@
+.faces {
+  --frown: hsl(3, 88%, 77%);
+  --meh: hsl(0, 0%, 5%);
+  --smile: hsl(127, 45%, 74%);
+  --primary: hsl(231, 48%, 48%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  i {
+    font-size: 6em;
+    transition: transform 0.3s ease;
+
+    &.selected {
+      outline: 4px solid var(--primary);
+    }
+
+    &:hover {
+      outline: 4px solid #eee;
+      transform: scale(1.2);
+    }
+
+    &:hover.selected {
+      outline: 4px solid var(--primary);
+    }
+
+    &.fa-frown {
+      color: var(--frown);
+    }
+
+    &.fa-meh {
+      color: var(--meh);
+    }
+
+    &.fa-smile {
+      color: var(--smile);
+    }
+  }
+}

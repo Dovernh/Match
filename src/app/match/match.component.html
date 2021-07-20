@@ -1,34 +1,37 @@
-<div class="container"
-  *ngIf="words && defs; else loading">
-  <div class="sticky header"
-    #headerContainer>
+<div class="container" *ngIf="words && defs; else loading">
+  <div class="sticky header" #headerContainer>
     <h3 class="count-down">
-      <app-count-down [endMinutes]="20"
+      <app-count-down
+        [endMinutes]="20"
         (submitted)="submitted()"
-        (timeExpired)="timeExpired()"></app-count-down>
+        (timeExpired)="timeExpired()"
+      ></app-count-down>
+
+      <div class="center">Words Remaining: {{ probe?.words?.length }}</div>
     </h3>
     <div class="words">
-      <div class="word"
+      <div
+        class="word"
         *ngFor="let word of words"
         (click)="selectWord(word.displayName)"
-        [ngClass]="{ selected: word.selected }"
-        [ngClass]="{ 'assigned': word.assigned }">
+        [class.selected]="word.selected"
+        [class.assigned]="word.assigned"
+      >
         {{ word.displayName }}
       </div>
     </div>
   </div>
 
-  <div class="defs"
-    #defContainer>
-    <div class="def-container"
-      *ngFor="let def of defs">
-      <div class="placeholder"
+  <div class="defs" #defContainer>
+    <div class="def-container" *ngFor="let def of defs">
+      <div
+        class="placeholder"
         *ngIf="def.assignedWord"
-        (click)="assignWord(def)">
+        (click)="assignWord(def)"
+      >
         {{ def.assignedWord }}
       </div>
-      <div class="def"
-        (click)="assignWord(def)">{{ def.definition }}</div>
+      <div class="def" (click)="assignWord(def)">{{ def.definition }}</div>
     </div>
   </div>
 </div>

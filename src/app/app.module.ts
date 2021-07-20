@@ -15,6 +15,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatchFinishComponent } from './match-finish/match-finish.component';
 import { MatchFinishConfirmComponent } from './match-finish-confirm/match-finish-confirm.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatchBeginComponent } from './match-begin/match-begin.component';
+import { MatButtonModule } from '@angular/material/button';
+import { FacesComponent } from './faces/faces.component';
+import { MatchResultsComponent } from './match-results/match-results.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatchComponent,
     MatchFinishComponent,
     MatchFinishConfirmComponent,
+    MatchBeginComponent,
+    FacesComponent,
+    MatchResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +44,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

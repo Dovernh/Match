@@ -15,7 +15,7 @@ import { startWith, takeWhile, tap } from 'rxjs/operators';
   styleUrls: ['./count-down.component.scss'],
 })
 export class CountDownComponent implements OnInit, OnDestroy {
-  @Input() endMinutes = 6;
+  @Input() endMinutes = 5;
   @Output() submitted = new EventEmitter<void>();
   @Output() timeExpired = new EventEmitter<void>();
 

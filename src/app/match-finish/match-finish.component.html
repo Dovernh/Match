@@ -1,9 +1,18 @@
-<div class="thanks">
-  <div *ngIf="!timeExpired; else expired">
-    Thank you, your responses were submitted
+<div class="container">
+  <div class="how-did-u-do">How do you think you did?</div>
+
+  <div class="instruct">Select how you feel you did, then click "Finish"</div>
+
+  <app-faces (selectedFeeling)="onFeelingSelected($event)"></app-faces>
+
+  <div class="begin">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="selectedFeeling === null"
+      (click)="finish()"
+    >
+      Finish
+    </button>
   </div>
 </div>
-
-<ng-template #expired
-  >Time has expired. Your responses have been submitted</ng-template
->
