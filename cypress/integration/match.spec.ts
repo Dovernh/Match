@@ -1,6 +1,6 @@
 describe('Match test', () => {
   beforeEach(() => {
-    cy.visit('/match').contains('Time');
+    cy.visit('match').contains('Time');
   });
 
   it('Should select first word', () => {

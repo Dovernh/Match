@@ -6,5 +6,6 @@
   "pluginsFile": "cypress/plugins/index.ts",
   "fixturesFolder": "cypress/fixtures",
   "baseUrl": "http://localhost:4200",
-  "projectId": "qv3s41"
+  "projectId": "qv3s41",
+  "chromeWebSecurity": false
 }

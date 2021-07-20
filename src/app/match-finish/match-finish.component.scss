@@ -3,14 +3,11 @@
 
   display: grid;
   place-content: center;
-  width: 100vw;
   height: 100vh;
 
   .how-did-u-do {
     font-size: xx-large;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     margin-bottom: 1.5rem;
   }
 

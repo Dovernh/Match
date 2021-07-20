@@ -1,6 +1,6 @@
 describe('Match finish', () => {
     beforeEach(() => {
-      cy.visit('/match-finish').contains('How do you think you did?');
+      cy.visit('match-finish').contains('How do you think you did?');
     });
 
     it('Should contain 3 faces', () => {
