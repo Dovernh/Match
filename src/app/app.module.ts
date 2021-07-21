@@ -19,6 +19,7 @@ import { MatchBeginComponent } from './match-begin/match-begin.component';
 import { MatButtonModule } from '@angular/material/button';
 import { FacesComponent } from './faces/faces.component';
 import { MatchResultsComponent } from './match-results/match-results.component';
+import { WordsRemainingPipe } from './pipes/words-remaining.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatchResultsComponent } from './match-results/match-results.component';
     MatchBeginComponent,
     FacesComponent,
     MatchResultsComponent,
+    WordsRemainingPipe,
   ],
   imports: [
     BrowserModule,

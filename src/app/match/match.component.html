@@ -7,7 +7,9 @@
         (timeExpired)="timeExpired()"
       ></app-count-down>
 
-      <div class="center">Words Remaining: {{ probe?.words?.length }}</div>
+      <div class="center">
+        Words Remaining: {{ probe?.words | wordsRemaining }}
+      </div>
     </h3>
     <div class="words">
       <div
